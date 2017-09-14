@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+	<title>Note</title>
+	<script src="vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="note.css">
+</head>
+<body>
+<div id="app" class="container">
+  <div class="card card-header">
+    <h3 class="text-center capitalize ">{{title}}</h3>
+    </div><!--card-header-->
+  <div class="form">
+  <div class="form-group   ">
+      <div class="card-body">
+      	 <div class="form-group">
+          <label>Title</label>
+          <input class="form-control" type="text" v-model="note.title">
+     </div><!--form-group-->
+     <div class="form-group">
+       <label>Note Text</label>
+       <textarea class="form-control" v-model="note.text"></textarea>
+     </div><!--form-group-->
+      </div>
+    <div class=" text-muted"> 
+      <button class=" card-footer btn-block" @click="addNote">Add Note</button>
+      </div><!--card-footer text-muted-->
+  </div>
+   <div class="col-sm-12">
+     <div class="col-sm-12  note note" v-for="(note, index) in notes">
+        <div class="card">
+          <div class="card-block">
+          <button class="close" @click="removeNote(index)">&times;</button>
+            <h5 class="card-title " >{{note.title}}</h5>
+             <h6 class="card-subtitle md-2 text-muted ">{{note.date}}</h6>
+             <p class="card-text"> {{note.text}}</p>
+          </div><!--card-block-->
+        </div><!--card-->
+       </div>
+     </div><!--col-sm-4 -->
+  </div><!--col-sm-12 -->
+</div>
+
+
+<script>
+var app= new Vue({
+  el:"#app",
+  data:{
+    title:"NOTEBOOK",
+  note:{
+    title:"",
+    text:""
+  },//NOTE
+  notes:[{
+    title:"learn Vue",
+    text:"i love vue ",
+    date:new Date(Date.now()).toLocaleString()
+  }]//NOTES
+ 
+  },//DATA
+ methods: {
+ addNote(){
+ let {text, title} = this.note
+ this.notes.push({
+  text,
+  title,
+  date: new Date(Date.now()).toLocaleString()
+   })
+  },//addNote
+  removeNote(index){
+   this.notes.splice(index, 1)
+  }//removeNote
+}//METHODS
+})//VAR
+
+
+</script>
+</body>
+</html>
